@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube</title>
+    <link rel="icon" href="./img/title.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: #555;
+        }
+
+        img {
+            cursor: pointer;
+        }
+
+        .flex-div {
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            padding: 0px 2%;
+            justify-content: space-between;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: #555;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            height: 50px;
+        }
+
+        .nav-right img {
+            width: 25px;
+            margin-right: 25px;
+        }
+
+        .nav-right .user-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 0;
+        }
+
+        .nav-left .menu-icon {
+            width: 22px;
+            margin-right: 25px;
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-left .logo {
+            width: 130px;
+            height: 80px;
+        }
+
+        .nav-middle .mic-icon {
+            width: 16px;
+        }
+
+        .nav-middle img {
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-middle .search-box {
+            margin-right: 15px;
+            padding: 8px 12px;
+            border-radius: 25px;
+        }
+        
+        .nav-middle input {
+            border: none;
+            color: white;
+            width: 400px;
+            outline: none;
+            background: #575757;
+        }
+
+        .search-box img {
+            width: 15px;
+        }
+
+        .side-bar {
+            background-color: #555;
+            width: 15%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            padding-left: 2%;
+            padding-top: 80px;
+        }
+
+        .shortcut-links a img {
+            width: 20px;
+            margin-right: 20px;
+        }
+
+        .shortcut-links a {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            width: fit-content;
+            flex-wrap: wrap;
+        }
+        .shortcut-links a{
+            color: white;
+        }
+
+        .shortcut-links a:nth-child(1) {
+            color: #e33;
+        }
+
+        .side-bar hr {
+            border: 0;
+            height: 1px;
+            background-color: #ccc;
+            width: 85%;
+        }
+
+        .subscribed-list h3 {
+            font-size: 13px;
+            margin: 20px 0;
+            color: #555;
+        }
+
+        .subscribed-list a {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            width: fit-content;
+            flex-wrap: wrap;
+            color: white;
+        }
+
+        .subscribed-list a img {
+            width: 25px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .video-section {
+            padding-top: 2%;
+            margin-left: 15%;
+            padding-right: 2%;
+            padding: 10px 5px;
+            background-color: #555;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .video {
+            width: 30%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: all 1s ease;
+        }
+
+        .video img {
+            width: 100%;
+        }
+
+        .short-section {
+            display: inline-block;
+            margin-bottom: 10px;
+            overflow-x: auto;
+            padding-left: 10px;
+        }
+
+        .short-section h3 {
+            display: block;
+            margin: 10px 20px;
+            font-size: 25px;
+            color: white;
+        }
+        .short-section .logo{
+            width: 40px;
+            margin-bottom: 10px;
+        }
+
+        .short-section hr {
+            border: 0;
+            height: 1px;
+            background-color: #ccc;
+            width: 85%;
+        }
+
+        .short-section .row {
+            padding: 10px 0;
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .short-section .video {
+            width: 250px;
+            margin-right: 10px;
+        }
+
+        .video-section .video .video-info img {
+            width: 40px;
+            height: 40px;
+            display: flex;
+        }
+
+        .short-section .video img {
+            height: 400px;
+        }
+
+        .video-info {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .video-info img {
+            border-radius: 50%;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .video-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-details a {
+            font-weight: bold;
+            font-size: 18px;
+            color: white;
+            padding-top: 5px;
+        }
+        .video-details p{
+            color: white;
+        }
+
+        .video-details p {
+            font-size: 16px;
+        }
+
+        .video-details span {
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .short-section .video-details {
+            padding: 10px 15px;
+        }
+
+        .video:hover .hide {
+            display: block;
+        }
+
+        .video:hover {
+            box-shadow: 1px 1px 10px #3a3a3a;
+        }
+
+        .hide {
+            display: none;
+            margin: 5px auto;
+            width: 100%;
+            height: 40px;
+            background-color: #696969;
+            color: #ccc;
+            border: none;
+            border-radius: 10px;
+            margin-left: -25px;
+            transition: all 1s ease;
+        }
+
+        .shortcut-links img{
+            filter: brightness(0) invert(1);
+        }
+
+        .hide:hover {
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .h {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 1s ease;
+            padding-top: 10px;
+        }
+
+        .white {
+            filter: brightness(0) invert(1);
+        }
+        .heading{
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="flex-div">
+        <div class="nav-left flex-div">
+            <img src="./img/menu.png" class="menu-icon">
+            <img src="./img/youtube.png" class="logo">
+        </div>
+        <div class="nav-middle flex-div">
+            <div class="search-box flex-div">
+                <input type="text" placeholder="Search">
+                <img src="./img/search.png">
+            </div>
+            <img src="./img/voice-search.png" class="mic-icon">
+        </div>
+        <div class="nav-right flex-div">
+            <img src="./img/upload.png" class="white">
+            <img src="./img/more.png" class="white">
+            <img src="./img/notification.png" class="white">
+            <img src="./img/azaan (1).png" class="user-icon">
+        </div>
+    </nav>
+    <!-- sidebar -->
+    <div class="side-bar">
+        <div class="shortcut-links">
+            <a href=""><img src="./img/home.png">
+                <p>Home</p>
+            </a>
+            <a href=""><img src="./img/explore.png">
+                <p>Explore</p>
+            </a>
+            <a href=""><img src="./img/subscriprion.png">
+                <p>Subscriprion</p>
+            </a>
+            <a href=""><img src="./img/library.png">
+                <p>Library</p>
+            </a>
+            <a href=""><img src="./img/history.png">
+                <p>History</p>
+            </a>
+            <a href=""><img src="./img/playlist.png">
+                <p>PlayList</p>
+            </a>
+            <a href=""><img src="./img/messages.png">
+                <p>Messages</p>
+            </a>
+            <a href=""><img src="./img/show-more.png">
+                <p>Show More</p>
+            </a>
+            <hr>
+        </div>
+        <div class="subscribed-list">
+            <h3>Subscriptions</h3>
+            <a href=""><img src="./img/Jack.png">
+                <p>Jack Nicholson</p>
+            </a>
+            <a href=""><img src="./img/simon.png">
+                <p>Simon Baker</p>
+            </a>
+            <a href=""><img src="./img/tom.png">
+                <p>Tom Hardy</p>
+            </a>
+            <a href=""><img src="./img/megan.png">
+                <p>Megan Rayan</p>
+            </a>
+            <a href=""><img src="./img/cameron.png">
+                <p>Cameron Diaz</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="video-section">
+        <div class="row">
+            <div class="video">
+                <img src="./img/thumbnail1.png">
+                <div class="video-info">
+                    <img src="./img/mrwhoosetheboss.jpg">
+                    <div class="video-details">
+                        <a href="#">Samsung S23 Ultra vs iPhone 14 Pro Max</a>
+                        <p>Mrwhoosetheboss</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div><div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video">
+                <img src="./img/thumbnail2.png">
+                <div class="video-info">
+                    <img src="./img/browney.jpg">
+                    <div class="video-details">
+                        <a href="#">We Tried The Hardest Challenges In The World</a>
+                        <p>Browney</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div>
+                        <div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video">
+                <img src="./img/thumbnail3.png">
+                <div class="video-info">
+                    <img src="./img/d-b.jpg">
+                    <div class="video-details">
+                        <a href="#">Muneeb Ka Rishta Dhoondlia 🤣</a>
+                        <p>Ducky Bhai</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div><div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="video">
+                <img src="./img/thumbnail4.png">
+                <div class="video-info">
+                    <img src="./img/techiela.jpg">
+                    <div class="video-details">
+                        <a href="#">Something which is better than Media queries ?</a>
+                        <p>Tech-iela</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div><div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video">
+                <img src="./img/thumbnail5.png">
+                <div class="video-info">
+                    <img src="./img/m.jpg">
+                    <div class="video-details">
+                        <a href="#">Chase your dreams to prove them wrong</a>
+                        <p>Motivation Time</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div><div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video">
+                <img src="./img/thumbnail6.png">
+                <div class="video-info">
+                    <img src="./img/babar.jpg">
+                    <div class="video-details">
+                        <a href="#">Babar Azam the great captain of Pakistan</a>
+                        <p>Babar Reacts</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div><div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- short -->
+        <div class="short-section">
+            <div class="heading">
+            <img src="./img/Youtube-shorts-icon-png.png" class="logo">
+            <h3>YT Shorts</h3>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="video">
+                    <img src="./img/short1.webp">
+                    <div class="video-info">
+                        <div class="video-details">
+                            <a href="#">What people think computer sciencs is</a>
+                            <div class="views">
+                                <span>10k</span>
+                                -
+                                <span>10min ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="./img/short5.webp">
+                    <div class="video-info">
+                        <div class="video-details">
+                            <a href="#">Some shortcuts that will help you in CSS</a>
+                            <div class="views">
+                                <span>10k</span>
+                                -
+                                <span>10min ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="./img/short3.webp">
+                    <div class="video-info">
+                        <div class="video-details">
+                            <a href="#">Main tutorials of W3 school</a>
+                            <div class="views">
+                                <span>10k</span>
+                                -
+                                <span>10min ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <img src="./img/short4.webp">
+                    <div class="video-info">
+                        <div class="video-details">
+                            <a href="#">Chest home Workout that you can do</a>
+                            <div class="views">
+                                <span>10k</span>
+                                -
+                                <span>10min ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="video">
+                <img src="./img/thumbnail7.png">
+                <div class="video-info">
+                    <img src="./img/sv2.jpg">
+                    <div class="video-details">
+                        <a href="#">Insane football challenges to complete</a>
+                        <p>SV2</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div><div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video">
+                <img src="./img/thumbnail8.png">
+                <div class="video-info">
+                    <img src="./img/pcb.jpg">
+                    <div class="video-details">
+                        <a href="#">Iftikhar goes big in the last over</a>
+                        <p>Pakistan Cricket</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div><div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video">
+                <img src="./img/thumbnail9.png">
+                <div class="video-info">
+                    <img src="./img/cwh.jpg">
+                    <div class="video-details">
+                        <a href="#">All you need to know about MERN app</a>
+                        <p>Code With Harry</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div><div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="video">
+                <img src="./img/thumbnail10.png">
+                <div class="video-info">
+                    <img src="./img/e-t.jpg">
+                    <div class="video-details">
+                        <a href="#">how to become a professional frontend web developer</a>
+                        <p>Easy Tutorials</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div><div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video">
+                <img src="./img/thumbnail11.png">
+                <div class="video-info">
+                    <img src="./img/mike shake.jpg">
+                    <div class="video-details">
+                        <a href="#">I tried to obtain super-hero powers</a>
+                        <p>Mike Shake</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div><div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video">
+                <img src="./img/thumbnail12.png">
+                <div class="video-info">
+                    <img src="./img/browney.jpg">
+                    <div class="video-details">
+                        <a href="#">I trained like FBI for 24 hours straight</a>
+                        <p>Browney</p>
+                        <div class="views">
+                            <span>10k</span>
+                            -
+                            <span>10min ago</span>
+                        </div><div class="h">
+                            <button class="hide">Watch Later</button>
+                            <button class="hide">Save Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
